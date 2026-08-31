@@ -111,16 +111,41 @@ open http://localhost:8080
 | 上下文窗口 | 约 1500 万 token（会话经多次上下文压缩） |
 | 技能插件 | mattpocock-skills：`grill-me`、`grill-with-docs`（内部使用 `grilling` 访谈 + `domain-modeling` 领域建模） |
 | 实际调用工具 | Bash（构建/探测/冒烟）、Read、Write、Edit、WebSearch、AskUserQuestion、TaskCreate/TaskUpdate |
-| 对话转录 | `~/.claude/projects/-Users-ju5t1n-aiproject-game-video-downloader/350a7abf-5a26-4633-8bf7-0ae825f6beb5.jsonl`（约 2.9 MB） |
-| 后台任务目录 | `~/.claude/jobs/350a7abf/` |
 
-### 生成过程
+### 对话记录
 
-1. **需求分析**（grill-me）：梳理上游 API，枚举 180+ 接口及关系，筛选免鉴权接口 → `docs/api-analysis.md`。
-2. **功能原型**（grill-with-docs）：访谈定用户旅程、业务流程，产出原型与 ADR → `docs/prototype.md`、`docs/adr/`。
-3. **代码计划**（grill-with-docs）：技术选型、模块划分、实现顺序 → `docs/code-plan.md`。
-4. **开发规范**（grill-me）：Web 检索阿里 Java 手册 + Spring Boot 最佳实践 → `docs/coding-standards.md`。
-5. **编码实现 + 验收**：按计划实现 29 个 Java 文件 + 前端三件套，`mvn package` 构建通过、7 单测全绿、真实 API 冒烟通过，并修复 Lombok/JDK 兼容与格式化器适配。
+> 精简自会话转录（约 2.9 MB JSONL），省略 AI 工具调用与思考细节，去除暂停/继续等插曲。
+
+**① 需求分析**（`grill-me`）
+- 用户：做 H5 批量下载第三方视频，先分析 API 文档、梳理接口关系、筛选免鉴权接口。
+- AI：实测 5 个核心接口零会话可访问，梳理 6 模块 180+ 接口 + 鉴权分级 → `docs/api-analysis.md`。
+
+**② 需求澄清**（`grilling` 访谈）
+- 逐条确认：范围=只下免登录可看视频（无非法操作）；发现链路=定位→场馆→比赛→视频；架构=H5+后端；免费/付费按 URL 区分；用户自选片段；zip 交付；流式不落盘；个人工具；后端改 Java。
+
+**③ 功能原型**（`grill-with-docs`）
+- 用户旅程：单页逐层下钻 / 定位优先+城市兜底 / 历史比赛 / 不单开详情页 / 全量平铺列表 / 文本+行内预览 / Spinner+实时计数。
+- 业务流程：后端一次拉全 / 不过滤（全下含付费）/ 并发下载临时目录 / 顺序 zip 流式回写 / 用后即删 / 轮询进度。
+- 关键实测：付费 mp4 匿名可直下；CDN 有 UA 门槛；判定规则「含 `/bepaid/` = 付费」。
+- 产出：`docs/prototype.md`、`CONTEXT.md`、`docs/adr/0001~0003`。
+
+**④ 代码计划**（`grill-with-docs`）
+- 定 Maven + Java 21 / 原生 JS 静态前端 / 最小单测 → `docs/code-plan.md`。
+
+**⑤ 开发规范**（`grill-me`）
+- Web 检索阿里 Java 手册 + Spring Boot 最佳实践，定 record DTO + Lombok 轻量 / 分层不拆接口 / Spotless 4 空格 → `docs/coding-standards.md`。
+
+**⑥ 编码实现**
+- 实现 29 个 Java 文件 + 前端三件套；修复 Lombok 注解处理器（JDK 23+）与版本（1.18.46）；构建通过、7 单测全绿、真实 API 冒烟通过。
+
+**⑦ 格式化器适配**
+- palantir 不兼容 JDK 25 → 换 Spotless Eclipse JDT（4 空格，`eclipse-formatter.xml`）。
+
+**⑧ 功能验收 + 微调**
+- 启动服务，用户验收通过；微调：场馆搜索自动带当前定位、按距离从近到远排序。
+
+**⑨ 文档与交付**
+- 生成 README、CLAUDE.md；提交 git（49 文件 / 3082 行）并推送 GitHub。
 
 ---
 
