@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: game-video-downloader
+
+server:
+  port: 8080
+
+app:
+  upstream:
+    index-url: https://qiuxinkaifa.com/index.php/Api
+    activity-url: https://qiuxinkaifa.com/index.php/Api/Activity
+    user-agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 MicroMessenger/8.0"
+    referer: https://servicewechat.com/
+    video-host: qxtechdata.qiuxinkaifa.com
+  download:
+    concurrency: 4
+    temp-dir: ${java.io.tmpdir}/gvd
+    max-pages: 100
+    max-events: 5000
+    connect-timeout: 10s
+    read-timeout: 60s

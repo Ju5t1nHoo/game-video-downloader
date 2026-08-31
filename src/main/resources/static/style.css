@@ -1,0 +1,152 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f5f6f8;
+  color: #222;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: #1f2937;
+  color: #fff;
+  padding: 12px 16px;
+  z-index: 10;
+}
+
+header h1 { margin: 0 0 8px; font-size: 18px; }
+
+.search-bar { display: flex; gap: 8px; }
+.search-bar input {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.search-bar button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#breadcrumb { margin-top: 10px; font-size: 13px; color: #cbd5e1; }
+#breadcrumb .crumb { color: #93c5fd; cursor: pointer; }
+#breadcrumb .crumb.current { color: #fff; cursor: default; }
+
+main { padding: 12px 16px 90px; max-width: 720px; margin: 0 auto; }
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+
+.card.city { display: flex; align-items: center; font-size: 15px; }
+
+.court { display: flex; gap: 10px; }
+.court-banner { width: 72px; height: 54px; object-fit: cover; border-radius: 6px; flex: none; }
+.court-info { flex: 1; }
+.court-name { font-size: 15px; font-weight: 600; }
+.court-addr { font-size: 12px; color: #6b7280; margin-top: 4px; }
+.court-dist { font-size: 12px; color: #3b82f6; margin-top: 2px; }
+
+.match { display: flex; align-items: center; gap: 12px; }
+.match-teams { flex: 1; font-size: 15px; }
+.match-teams b { color: #9ca3af; margin: 0 4px; }
+.match-score { font-size: 18px; font-weight: 700; color: #ef4444; }
+.match-date { font-size: 12px; color: #6b7280; }
+
+.clips-header { background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+.match-title { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+.clips-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.clips-toolbar button {
+  padding: 6px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+.clips-toolbar button.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+.team-filter { display: flex; gap: 6px; }
+.clip-count { margin-left: auto; font-size: 12px; color: #6b7280; }
+
+.clip {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.clip.selected { outline: 2px solid #3b82f6; }
+.clip-body { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; }
+.clip-poster { width: 56px; height: 42px; object-fit: cover; border-radius: 4px; flex: none; }
+.clip-meta { flex: 1; }
+.clip-line1 { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.clip-team { color: #1f2937; font-weight: 600; }
+.clip-jieguo { color: #ef4444; }
+.clip-cam { color: #6b7280; }
+.clip-paid {
+  background: #fde68a;
+  color: #92400e;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.clip-line2 { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.clip-preview video { width: 100%; max-height: 260px; border-radius: 6px; background: #000; }
+
+.hidden { display: none; }
+.empty { text-align: center; color: #9ca3af; padding: 40px 0; }
+
+.download-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: #1f2937;
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+.download-bar span { flex: 1; font-size: 14px; }
+.download-bar button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+.download-bar button:disabled { opacity: 0.5; cursor: default; }
+
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 20;
+}
+#toast.show { opacity: 1; }

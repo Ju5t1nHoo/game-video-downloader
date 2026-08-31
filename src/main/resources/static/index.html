@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>比赛视频下载</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>比赛视频下载</h1>
+    <div class="search-bar">
+      <input id="court-search" type="search" placeholder="搜索场馆名称…">
+      <button id="search-btn">搜索</button>
+    </div>
+    <nav id="breadcrumb"></nav>
+  </header>
+
+  <main id="content"></main>
+
+  <div id="download-bar" class="download-bar hidden">
+    <span id="download-info">已选 0 个片段</span>
+    <button id="download-btn">下载已选</button>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
