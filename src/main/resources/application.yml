@@ -3,7 +3,7 @@ spring:
     name: game-video-downloader
 
 server:
-  port: 8080
+  port: 9090
 
 app:
   upstream:
