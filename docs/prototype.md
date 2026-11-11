@@ -67,7 +67,8 @@
 | `keytime` | event | 事件时间戳（`2026-08-27 20:04:35`） |
 | `offensive` | event | 进攻方侧位（middle/far/near…） |
 | `jieguo` | event | 结果类型（miss/goal/…） |
-| `teamid` / `starid` | event | 球队 / 球员 ID（可选 `getstar=1` 取球员名） |
+| `teamid` / `starid` | event | 球队 / 球员 ID |
+| `jersey` | event | 投篮队员号码（`getstar=1`，缺失为 null） |
 | `camname` | video | 机位名（如「侧位（下）」） |
 | `path` | video | mp4 直链 |
 | `poster` | video | OSS 首帧缩略图 jpg |
@@ -76,9 +77,9 @@
 ## 6. 命名规范
 
 - **zip**：`{主队}vs{客队}_{比赛日期}.zip`（队名来自 `List5v5`；缺失时回退 `{actid}_{日期}.zip`）。
-- **片段文件**：`{序号:03d}_{事件}_{机位}_{时间戳}.mp4`
-  - 例：`001_miss_侧位下_20260827-200435.mp4`
-  - 序号 = zip 内顺序（1 起）；事件 = `jieguo` 原值；机位 = `camname` 去空格/括号；时间戳 = `keytime` 去 `-: `（`20260827-200435`）。
+- **片段文件**：`{序号:03d}_{事件}_{号码}_{机位}_{时间戳}.mp4`
+  - 例：`001_miss_9号_侧位下_20260827-200435.mp4`
+  - 序号 = zip 内顺序（1 起）；事件 = `jieguo` 原值；号码 = `jersey`（`N号`，缺失用 `0`）；机位 = `camname` 去空格/括号；时间戳 = `keytime` 去 `-: `（`20260827-200435`）。
 
 ## 7. 边界与错误处理
 

@@ -71,7 +71,8 @@ public class DownloadService {
                         continue;
                     }
                     ClipRef clip = clips.get(i);
-                    String name = FileNamer.clipName(index, clip.jieguo(), clip.camname(), clip.keytime());
+                    String name = FileNamer.clipName(index, clip.jieguo(), clip.jersey(), clip.camname(),
+                            clip.keytime());
                     zipStreamer.addEntry(zip, name, file);
                     index++;
                     success++;
@@ -111,7 +112,8 @@ public class DownloadService {
             job.onDownloaded(bytes);
         } catch (Exception e) {
             deleteQuietly(file);
-            job.onSkipped(FileNamer.clipName(idx + 1, clip.jieguo(), clip.camname(), clip.keytime()), reason(e));
+            job.onSkipped(FileNamer.clipName(idx + 1, clip.jieguo(), clip.jersey(), clip.camname(), clip.keytime()),
+                    reason(e));
         }
     }
 

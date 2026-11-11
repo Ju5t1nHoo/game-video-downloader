@@ -96,6 +96,14 @@ main { padding: 12px 16px 90px; max-width: 720px; margin: 0 auto; }
 .clip-meta { flex: 1; }
 .clip-line1 { display: flex; align-items: center; gap: 8px; font-size: 14px; }
 .clip-team { color: #1f2937; font-weight: 600; }
+.clip-jersey {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
 .clip-jieguo { color: #ef4444; }
 .clip-cam { color: #6b7280; }
 .clip-paid {

@@ -50,6 +50,7 @@ public class ClipService {
         params.put("op", "PlayByPlay");
         params.put("actid", String.valueOf(actid));
         params.put("getvideo", "1");
+        params.put("getstar", "1");
         params.put("size", String.valueOf(PAGE_SIZE));
         params.put("page", String.valueOf(page));
         return params;
@@ -66,6 +67,7 @@ public class ClipService {
         String jieguo = event.path("jieguo").asText(null);
         long teamid = event.path("teamid").asLong();
         long starid = event.path("starid").asLong();
+        Integer jersey = event.hasNonNull("jersey") ? event.get("jersey").asInt() : null;
         for (JsonNode video : videos) {
             String path = video.path("path").asText(null);
             if (path == null || path.isBlank()) {
@@ -73,7 +75,7 @@ public class ClipService {
             }
             String camname = video.path("camname").asText(null);
             String poster = video.path("poster").asText(null);
-            result.add(new Clip(notid, keytime, offensive, jieguo, teamid, starid, camname, path, poster,
+            result.add(new Clip(notid, keytime, offensive, jieguo, teamid, starid, jersey, camname, path, poster,
                     ClipClassifier.isPaid(path)));
         }
     }

@@ -23,7 +23,7 @@ java -jar target/game-video-downloader-0.1.0.jar   # 运行，http://localhost:8
 - 分层：`controller → service → client（上游代理）/ util`，`download` 包做下载编排。单向依赖、不跨层。
 - DTO 一律用 `record`；Service/Config 用 Lombok `@Slf4j` + `@RequiredArgsConstructor`（构造器注入，禁字段注入）。
 - 前端静态资源在 `src/main/resources/static/`，改动后需 `./mvnw package` 重新打包生效。
-- 命名：片段 `{序号:03d}_{事件}_{机位}_{时间戳}.mp4`；zip `{主队}vs{客队}_{日期}.zip`。
+- 命名：片段 `{序号:03d}_{事件}_{号码}_{机位}_{时间戳}.mp4`；zip `{主队}vs{客队}_{日期}.zip`。
 
 ## 关键约束（勿改动，否则会坏）
 

@@ -6,10 +6,16 @@ public final class FileNamer {
     private FileNamer() {
     }
 
-    /** 片段名：{@code {序号:03d}_{事件}_{机位}_{时间戳}.mp4}。 */
-    public static String clipName(int index, String jieguo, String camname, String keytime) {
-        String base = String.format("%03d_%s_%s_%s", index, orEmpty(jieguo), camPart(camname), timePart(keytime));
+    /** 片段名：{@code {序号:03d}_{事件}_{号码}_{机位}_{时间戳}.mp4}，号码缺失用 {@code 0}。 */
+    public static String clipName(int index, String jieguo, Integer jersey, String camname, String keytime) {
+        String base = String.format("%03d_%s_%s_%s_%s", index, orEmpty(jieguo), jerseyPart(jersey), camPart(camname),
+                timePart(keytime));
         return sanitize(base) + ".mp4";
+    }
+
+    /** 号码：{@code 9} → {@code 9号}；无号码 → {@code 0}。 */
+    private static String jerseyPart(Integer jersey) {
+        return jersey == null ? "0" : jersey + "号";
     }
 
     /** zip 名：{@code {主队}vs{客队}_{日期}.zip}，缺队名时回退 {@code match_{日期}.zip}。 */

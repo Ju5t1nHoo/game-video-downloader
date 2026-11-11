@@ -189,6 +189,7 @@ function renderClipList() {
           <div class="clip-meta">
             <div class="clip-line1">
               ${team ? `<span class="clip-team">${esc(team)}</span>` : ''}
+              ${c.jersey != null ? `<span class="clip-jersey">${esc(c.jersey)}号</span>` : ''}
               <span class="clip-jieguo">${esc(c.jieguo || '')}</span>
               <span class="clip-cam">${esc(c.camname || '')}</span>
               ${c.paid ? '<span class="clip-paid">付费</span>' : ''}
@@ -268,7 +269,7 @@ async function download() {
   }
   const clips = selected.map((i) => {
     const c = state.clips[i];
-    return { path: c.path, jieguo: c.jieguo, camname: c.camname, keytime: c.keytime };
+    return { path: c.path, jieguo: c.jieguo, jersey: c.jersey, camname: c.camname, keytime: c.keytime };
   });
   const m = state.currentMatch;
   const filename = `${m.team1}vs${m.team2}_${m.actdate}.zip`;

@@ -6,6 +6,6 @@ import java.util.List;
 public record DownloadRequest(String jobId, String filename, List<ClipRef> clips) {
 
     /** 已选片段的引用，携带生成条目名所需的字段。 */
-    public record ClipRef(String path, String jieguo, String camname, String keytime) {
+    public record ClipRef(String path, String jieguo, Integer jersey, String camname, String keytime) {
     }
 }
