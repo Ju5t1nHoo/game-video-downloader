@@ -10,7 +10,7 @@
 
 - **定位优先 + 城市兜底**：进入自动请求定位展示「附近场馆」，拒绝/失败降级到城市列表；场馆搜索自动带当前定位，按距离从近到远排序。
 - **单页逐层下钻**：场馆 → 历史比赛 → 视频片段，面包屑可回退。
-- **全量片段平铺列表**：缩略图、球队、事件类型（miss/goal）、机位、时间戳，付费片段带「付费」徽标。
+- **全量片段平铺列表**：缩略图、球队、投篮队员号码、事件类型（miss/goal）、机位、时间戳，付费片段带「付费」徽标。
 - **勾选与筛选**：全选 / 按主队客队筛选 / 单个勾选；点击行内嵌 `<video>` 预览。
 - **并发下载 + 流式打包**：4 路并发抓取到临时目录，顺序打包 zip 流式回写（zip 不落盘，用后即删），实时进度「下载中 X/N 片段 · Y MB」。
 
@@ -33,6 +33,9 @@ game-video-downloader/
 ├── pom.xml                  # Maven 构建（Spring Boot 3.5.16 / Java 21 / Lombok / Spotless）
 ├── eclipse-formatter.xml    # Spotless 格式化配置（4 空格）
 ├── mvnw / mvnw.cmd          # Maven Wrapper（固定 3.9.9）
+├── Dockerfile               # 多阶段构建镜像
+├── compose.yaml             # Docker Compose 部署
+├── .dockerignore            # 构建上下文排除
 ├── CONTEXT.md               # 领域词汇表
 ├── docs/
 │   ├── api-analysis.md      # 上游 API 分析（180+ 接口 + 鉴权分级）
@@ -76,6 +79,18 @@ open http://localhost:8080
 ./mvnw spotless:apply   # 4 空格格式化
 ./mvnw spotless:check   # 校验格式
 ```
+
+### Docker Compose 部署（可选）
+
+```bash
+docker compose up -d --build   # 首次联网下载 Maven + 依赖，之后层缓存会快
+open http://localhost:9090
+```
+
+- 宿主机端口默认 **9090**（8080 已被占用），可用 `HOST_PORT` 覆盖：`HOST_PORT=8080 docker compose up -d`。
+- 容器内仍监听 8080；临时片段走容器 `/tmp/gvd`，不持久化（用后即删）。
+- 重启策略 `unless-stopped`；停止并移除：`docker compose down`。
+- 配置覆盖：Spring Boot 原生支持 `APP_*` 环境变量，如 `APP_DOWNLOAD_TEMP_DIR=/data/gvd`、`APP_DOWNLOAD_CONCURRENCY=8`，无需改代码。
 
 ## 接口说明
 

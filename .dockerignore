@@ -1,0 +1,21 @@
+# 构建产物（多阶段构建会自己在容器内打包，宿主机 target/ 不能进上下文）
+target/
+
+# 版本控制与 IDE
+.git/
+.gitignore
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# 构建阶段用不到的文档与工具（build 用 maven:3.9 镜像自带的 mvn，无需 wrapper）
+docs/
+README.md
+CONTEXT.md
+CLAUDE.md
+LICENSE
+eclipse-formatter.xml
+mvnw
+mvnw.cmd
+.mvn/

@@ -1,0 +1,12 @@
+# 兰芯数字赛场视频批量下载工具 —— Docker Compose 部署
+# 启动：docker compose up -d --build
+# 宿主机端口默认 9090（8080 已被占用），可用 HOST_PORT 覆盖：
+#   HOST_PORT=8080 docker compose up -d
+services:
+  app:
+    build: .
+    image: game-video-downloader:latest
+    container_name: game-video-downloader
+    ports:
+      - "${HOST_PORT:-9090}:8080"
+    restart: unless-stopped
