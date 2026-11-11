@@ -4,13 +4,14 @@
 FROM maven:3.9-eclipse-temurin-21 AS builder
 WORKDIR /build
 
-# 先复制 pom，预热依赖层（源码改动不触发重新下载依赖）
+# 先复制 pom 与阿里云 Maven 镜像 settings，预热依赖层（源码改动不触发重新下载依赖）
 COPY pom.xml ./
-RUN mvn -B -q dependency:go-offline
+COPY settings.xml ./
+RUN mvn -B -q -s settings.xml dependency:go-offline
 
 # 再复制源码并打包（含 7 个单测）
 COPY src/ src/
-RUN mvn -B package
+RUN mvn -B -s settings.xml package
 
 # ---- runtime 阶段 ----
 FROM eclipse-temurin:21-jre-jammy
